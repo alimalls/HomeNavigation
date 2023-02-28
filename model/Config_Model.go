@@ -22,9 +22,11 @@ type conf struct {
 }
 
 type software struct {
-	Port     string `json:"port"`
+	Port     int    `json:"port"`
 	Password string `json:"password"`
 	Mode     string `json:"mode"`
+	Debug    string `json:"Debug"`
+	LogLeveL string `json:"LogLevel"`
 }
 
 type Data struct {
@@ -41,8 +43,10 @@ type footer struct {
 }
 
 type style struct {
-	Background string `json:"background"`
-	LColor     string `json:"LColor"`
-	SColor     string `json:"SColor"`
-	FColor     string `json:"FColor"`
+	Background       string `json:"background"`
+	BackgroundColorA string `json:"BackgroundColorA"`
+	BackgroundColorB string `json:"BackgroundColorB"`
+	LColor           string `json:"LColor"`
+	SColor           string `json:"SColor"`
+	FColor           string `json:"FColor"`
 }

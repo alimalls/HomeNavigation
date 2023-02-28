@@ -7,7 +7,17 @@
 ### docker-compose安装
 
 ```shell
-sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+# 下载二进制文件
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# 可执行权限应用于二进制文件
+sudo chmod +x /usr/local/bin/docker-compose
+
+# 创建软链
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+# 测试是否安装成功
+docker-compose --version
 ```
 
 ### docker-compose部署
@@ -45,7 +55,11 @@ docker-compose down
     // 访问密码（“”留空代表关闭密码访问，实时生效）
     "password": "",
     // 内外网模式【N为内网，W为外网（大写 & 必填）】
-    "Mode": ""
+    "Mode": "",
+    // 是否开启Debug
+    "Debug": "",
+    // 日志等级
+    "LogLevel": "info"
   },
   "Data": [
     {
@@ -54,7 +68,7 @@ docker-compose down
       // 图标标题
       "title": "我的博客",
       // 图标图片（支持相对&绝对路径、支持图床外链）
-      "ico": "img/png/AppStore.png",
+      "ico": "img/xxx.png",
       // 外网访问地址（可空）
       "w_link": "https://6b7.org/",
       // 内网访问地址（可空）  
@@ -72,6 +86,10 @@ docker-compose down
     "FooterStyle":{
       // Web背景图片（推荐图床外链）
       "Background": "",
+      // 渐变色背景(支持颜色的英文单词和十六进制颜色值)
+      // 当Background值为空时, 启用渐变值
+      "BackgroundColorA": "#acb6e5",
+      "BackgroundColorB": "#86fde8",
       // LOGO下方文字颜色(支持颜色的英文单词和十六进制颜色值)
       "LColor": "#E1DFCD",
       // 图标下方文字颜色(支持颜色的英文单词和十六进制颜色值)
@@ -120,6 +138,11 @@ docker-compose down
 ### 版本通知
 
 ```text
+2022.03.17：V1.8
+1、前端由原生H5转换为Vue开发
+2、保留本地图片接口（引用路径：img/xxx.png）
+3、新增渐变色背景，当Background选项为空时。启用渐变色背景
+
 2022.02.24：V1.7
 1、新增内外网首显控制开关
 2、新增LOGO文字、图标文字颜色控制
@@ -161,11 +184,11 @@ Q:能不能自定义图标下面文字的颜色，浅色背景下字看不清
 A:修改配置文件的 LColor、SColor、FColor 内容即可
 
 Q:能不能自定义前端HTML部分
-A:服务器部署用户可以直接修改views目录的文件，Docker用户推荐clone源码修改，然后使用make_image.sh打包源码
+A:暂时不可以
 
 Q:有没有Arm架构的版本
 A:暂时没有打包，需要自行Clone源码并编译
 
 Q:如何自己定义上传图片？
-A:我没有做本地图片文件夹的映射，主要是想节省空间。推荐大家使用图床（推荐我的个人图床：https://img.6b7.xyz）
+A:可以，请将自定义图片上传到img目录里面。但是推荐大家使用图床（推荐我的个人图床：https://img.6b7.xyz）
 ```
